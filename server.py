@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask , jsonify
 from flask_restful import reqparse, abort, Api, Resource
 import pandas as pd
 from ibm_watson import ToneAnalyzerV3
@@ -12,28 +12,30 @@ watson_key = "key goes here"
 class Hotel_Tone_Analyzer(Resource):
     def post(self,hotel_name):
         print("---Hotel analyser---")
-        tone_analyzer = ToneAnalyzerV3(
-            version='2017-09-21',
-            iam_apikey=watson_key,
-            url=watson_url)
+        
         # 1.extract hotel data
         print("name:" + hotel_name)
         hotel_data = hotel_list[hotel_list["name"]== hotel_name]
         hotel_review = hotel_data["reviews.text"]
+        print(hotel_review.head())
         # 2.create json/ string 
-        watson_input =hotel_review.to_json()
-        #print("\n"+hotel_review.head())
-        # 3.send it to watson
+        watson_input = hotel_review.to_json()
         
+        # 3.send it to watson
+        tone_analyzer = ToneAnalyzerV3(
+            version='2017-09-21',
+            iam_apikey=watson_key,
+            url=watson_url)
         try : 
             #watson 
-            print("try")
+            print("requesting tone analysis")
             watson_responce = tone_analyzer.tone(
-                {'text':watson_input} , content_language='en', content_type="application/json").get_result()
-            print("watson passed" + watson_responce)
-            # dict_responce = json.dumps(watson_responce,indent = 2 )
-            # print(dict_responce)
-            return watson_responce ,200
+                    {'text':watson_input} , 
+                    content_language='en', sentences=False, 
+                    content_type="application/json").get_result()
+            print("watson responded" )
+
+            return (watson_responce) ,200
         except: 
             return {"message":"failed to connect"} ,500   
         # recieve watson result , send it back 
