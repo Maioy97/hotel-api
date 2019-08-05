@@ -2,9 +2,13 @@ from flask import Flask , jsonify
 from flask_restful import reqparse, abort, Api, Resource
 import pandas as pd
 from ibm_watson import ToneAnalyzerV3
+from elasticsearch import Elasticsearch 
+
 
 app = Flask(__name__)
 api = Api(app)
+es=Elasticsearch([{'host':'localhost','port':9200}])
+
 file_path  = "hotels_noindex.csv"
 watson_url = "https://gateway-lon.watsonplatform.net/tone-analyzer/api"
 watson_key = "key goes here"
@@ -39,8 +43,6 @@ class Hotel_Tone_Analyzer(Resource):
         except: 
             return {"message":"failed to connect"} ,500   
         # recieve watson result , send it back 
-
-
 
 class  Hotel_Indexer(Resource):
     def post(self):
