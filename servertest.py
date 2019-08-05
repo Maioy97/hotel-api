@@ -2,6 +2,7 @@ import requests
 import json
 import pandas as pd
 from ibm_watson import ToneAnalyzerV3
+import os 
 
 
 
@@ -37,10 +38,20 @@ URLserver_tone = "http://127.0.0.1:5000/tone_analyzer/"   #<hotel_name>"
 URLserver_index = "http://127.0.0.1:5000/Hotel_Indexer/"  #<indexby>"   
 
 watson_url = "https://gateway-lon.watsonplatform.net/tone-analyzer/api"
-watson_key = "key goes here"
+watson_key = "D_SUnfwZQG1Y7OsY_0OPcYmHqHHfRK70xgc7GwTfdoS_"
 file_path  = "hotels_noindex.csv"
 hotel_list = pd.read_csv(file_path)
+namelist = hotel_list.name.unique()
 
-#responce = analyzer(watson_key,watson_url,hotelname)
-responce = call_server_analyzer()
+
+for hotelname in namelist:
+    responce = analyzer(watson_key,watson_url,hotelname)
+    filename =  os.path.join("hotel-tones",hotelname.replace("/", "=") + ".json")
+     # Writing JSON data
+    #if not os.path.exists(filename):
+    #    os.makedirs(filename)
+    with open(filename, 'w') as f:
+        json.dump(responce, f)
+
+# responce = call_server_analyzer()
 print(responce)
