@@ -108,7 +108,8 @@ URLserver_tone = "http://127.0.0.1:5000/tone_analyzer/"   #<hotel_name>"
 URLserver_index = "http://127.0.0.1:5000/Hotel_Indexer/"  #<indexby>"   
 
 watson_url = "https://gateway-lon.watsonplatform.net/tone-analyzer/api"
-watson_key = ""
+
+watson_key = "key goes here"
 file_path  = "hotels_noindex.csv"
 hotel_list = pd.read_csv(file_path)
 namelist = hotel_list.name.unique()
@@ -118,6 +119,7 @@ namelist = hotel_list.name.unique()
     
 # responce = analyzer(watson_key,watson_url,hotelname)
 # responce = call_server_analyzer()
+<<<<<<< HEAD
 print(result)
 
 
@@ -140,3 +142,6 @@ print(result)
         temp_review_userCity = hotel_data["reviews.userCity"]
         temp_review_username = hotel_data["reviews.username"]
         temp_review_userProvince = hotel_data["reviews.userProvince"]'''
+=======
+print(responce)
+>>>>>>> 45b6d8ce55f2fea6af99bbfc929196709a2fcd1b
