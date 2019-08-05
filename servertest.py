@@ -119,29 +119,4 @@ namelist = hotel_list.name.unique()
     
 # responce = analyzer(watson_key,watson_url,hotelname)
 # responce = call_server_analyzer()
-<<<<<<< HEAD
-print(result)
-
-
-
-'''
-
-        new_hotel_data["categories"] = hotel_data[0]["categories"]
-        new_hotel_data["city"] = hotel_data[0]["city"]
-        new_hotel_data["country"] = hotel_data[0]["country"]
-        new_hotel_data["latitude"] = hotel_data[0]["latitude"]
-        new_hotel_data["longitude"] = hotel_data[0]["longitude"]
-        new_hotel_data["name"] = hotel_data[0]["name"]
-        new_hotel_data["postalCode"] = hotel_data[0]["postalCode"]
-        temp_review_date = hotel_data["reviews.date"]
-        temp_review_text = hotel_data["reviews.text"]
-        temp_review_date_added = hotel_data["reviews.dateAdded"]
-        temp_review_id = hotel_data["reviews.id"]
-        temp_review_rating = hotel_data["reviews.rating"]
-        temp_review_title = hotel_data["reviews.title"]
-        temp_review_userCity = hotel_data["reviews.userCity"]
-        temp_review_username = hotel_data["reviews.username"]
-        temp_review_userProvince = hotel_data["reviews.userProvince"]'''
-=======
 print(responce)
->>>>>>> 45b6d8ce55f2fea6af99bbfc929196709a2fcd1b
