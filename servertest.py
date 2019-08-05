@@ -101,7 +101,7 @@ def create_dataset():
         print(name)
         json_path = os.path.join("hotel-dataset",name.replace("/", "=") + ".json")
         if not os.path.exists(json_path):
-        result = create_single_json(name) 
+            result = create_single_json(name) 
 
 hotelname= "Hawthorn Suites By Wyndham Livermore Wine Country"
 URLserver_tone = "http://127.0.0.1:5000/tone_analyzer/"   #<hotel_name>"
