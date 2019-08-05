@@ -53,11 +53,8 @@ def create_single_json(hotelname):
     # 1 static data
     print("")
     for field in fields:
-        temp_dict={}
-        temp_array = hotel_data[field].unique() #[0]
-        for i in range(len(temp_array)):
-            temp_dict[i] = temp_array[i]
-        new_hotel_data[field] = temp_dict    
+        temp_array = list(hotel_data[field].unique()) #[0]
+        new_hotel_data[field] = temp_array#temp_dict    
     # 2 filling watson tone data 
     json_path = os.path.join("hotel-tones",hotelname.replace("/", "=") + ".json")
     if not os.path.exists(json_path):
@@ -70,11 +67,14 @@ def create_single_json(hotelname):
         new_hotel_data["tone"] = data
     # filling reviews
     reviews = pd.DataFrame.from_dict(reviews)
+    reviews = reviews.replace({pd.np.nan:"empty"})
     for i,row in reviews.iterrows():
         temp_review = {}
         # for each review copy fields into json form (dictionary)
         for j in range(len(review_fields)):
             temp_review[review_fields[j]] = row[review_fields[j]]
+            if  temp_review[review_fields[j]] is None:
+                temp_review[review_fields[j]] ="empty"
             
         #add review to the list of reviews 
         reviews_formatted[i] = temp_review    
@@ -114,9 +114,8 @@ file_path  = "hotels_noindex.csv"
 hotel_list = pd.read_csv(file_path)
 namelist = hotel_list.name.unique()
 
-
-
-    
+create_dataset()
+   
 # responce = analyzer(watson_key,watson_url,hotelname)
 # responce = call_server_analyzer()
-print(responce)
+# print(responce)
